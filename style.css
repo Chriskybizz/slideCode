@@ -11,14 +11,46 @@
     margin: auto;
 }
 
+#left{
+    margin-top: 150px;
+}
+
+#left:hover{
+    transform: scale(1.1);
+}
+
+#right{
+    margin-top: 150px;
+}
+
+#right:hover{
+    transform: scale(1.1);
+}
+
 .tracker{
-    position: relative;
+    position:fixed;
     top: 300px;
-    right: 300px;
+    right: 550px;
     height: 10px;
     width: 10px;
     border-radius: 10px;
     background-color: red;
     margin: 10px;
     z-index: 2;
+}
+
+#trackerOne{
+    right: 700px;
+}
+
+#trackerTwo{
+    right: 650px;
+}
+
+#trackerThree{
+    right: 600px;
+}
+
+#trackerFour{
+    right: 555px;
 }
