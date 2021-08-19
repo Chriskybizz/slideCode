@@ -10,9 +10,13 @@
 
 <body>
     <div id="sliderContainer">
-        <button id="left" onclick="left()">left</button>
+        <div id="left" onclick="left()"><img src="left-arrow.png" alt=""></div>
         <img id="dogImg" src="dogOne.webp" alt="">
-        <button onclick="right()">right</button>
+        <div class="tracker" id="trackerOne" style="background-color: white;"></div>
+        <div class="tracker" id="trackerTwo"></div>
+        <div class="tracker" id="trackerThree"></div>
+        <div class="tracker" id="trackerFour"></div>
+        <div id="right" onclick="right()"><img src="right-arrow.png" alt=""></div>
     </div>
 <script src="script.js"></script>
 </body>
