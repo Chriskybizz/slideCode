@@ -63,30 +63,13 @@ const appendDiv = (imgNumber) => {
 }
 
 const slide = () => {
-    imgNumber = 0;
-    if (imgNumber >= 0 && imgNumber < imgArr.length) {
-        imgNumber++;
-        if (imgNumber === 0) {
-            x.src = imgArr[1]
-            console.log(x.src)
-        }
-        if (imgNumber === 1) {
-            x.src = imgArr[2]
-            console.log(x.src)
-        }
-        if (imgNumber === 2) {
-            x.src = imgArr[3]
-            console.log(x.src)
-        }
-        if (imgNumber === 3) {
-            x.src = imgArr[4]
-            console.log(x.src)
-        }
-        if (imgNumber === 4) {
-            x.src = imgArr[0]
-            console.log(x.src)
-        } 
-    } else { imgNumber = 0 }
+    const image = document.querySelector('.main-image');
+    const currentImageArray = image.src.split('/');
+    const currentImageSource = currentImageArray[currentImageArray.length - 1];
+    const index = imgArr.indexOf(currentImageSource);
+    const newIndex = getIndex(index);
+    const newSrc = imgArr[newIndex];
+    image.src = newSrc;
 }
 
 appendDiv()
