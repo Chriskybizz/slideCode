@@ -1,79 +1,94 @@
-let imgArr = ["C:\\Users\\chris\\Webdev\\slider\\land1.jpg", "C:\\Users\\chris\\Webdev\\slider\\land2.jpg", "C:\\Users\\chris\\Webdev\\slider\\land3.jpg",
-    "C:\\Users\\chris\\Webdev\\slider\\land4.jpg", "C:\\Users\\chris\\Webdev\\slider\\land5.jpg"]
+const imgArr = [
+    "land1.jpg",
+    "land2.jpg",
+    "land3.jpg",
+    "land4.jpg",
+    "land5.jpg",
+]
 
+const nextIndex = (currentIndex) => {
+    if (currentIndex === imgArr.length - 1) {
+        return 0;
+    }
 
-const newDiv = document.createElement("div");
-newDiv.style.height = "600px"
-newDiv.style.width = "100%"
-newDiv.style.border = "solid black 1px"
-newDiv.style.position = "relative"
-newDiv.style.display = "flex"
-
-const overlayRightButton = document.createElement("div");
-overlayRightButton.style.width = "20%"
-//overlayRightButton.style.border = "solid black 1px"
-//overlayRightButton.style.background = "red"
-overlayRightButton.style.position = "absolute"
-overlayRightButton.style.right = "0"
-overlayRightButton.style.zIndex = "2"
-overlayRightButton.style.height = "100%"
-
-const rightArrow = document.createElement("img");
-rightArrow.src = "C:\\Users\\chris\\Webdev\\slider\\Arrows-Right-icon.png"
-
-
-
-const imageBlock = document.createElement("div")
-imageBlock.style.width = "100%"
-imageBlock.style.height = "100%"
-//imageBlock.style.border = "solid black 1px"
-imageBlock.style.background = "green"
-imageBlock.style.position = "absolute"
-imageBlock.style.zIndex = "0"
-
-const overlayLeftButton = document.createElement("div");
-overlayLeftButton.style.width = "20%"
-//overlayLeftButton.style.border = "solid black 1px"
-//overlayLeftButton.style.background = "blue"
-overlayLeftButton.style.position = "absolute"
-overlayLeftButton.style.left = "0"
-overlayLeftButton.style.zIndex = "2"
-overlayLeftButton.style.height = "100%"
-overlayLeftButton.setAttribute("onclick", "C:/\Users/\chris/\Webdev/\slider/\land1.jpg");
-
-const leftArrow = document.createElement("img");
-leftArrow.src = "C:\\Users\\chris\\Webdev\\slider\\Arrows-Left-icon.png"
-
-
-const x = document.createElement("img");
-x.setAttribute("height", "100%")
-x.setAttribute("width", "100%")
-x.src = imgArr[0]
-
-
-const appendDiv = (imgNumber) => {
-    document.body.appendChild(newDiv)
-    newDiv.appendChild(imageBlock)
-    imageBlock.appendChild(x)
-    newDiv.appendChild(overlayLeftButton)
-    overlayLeftButton.appendChild(leftArrow)
-    newDiv.appendChild(overlayRightButton)
-    overlayRightButton.appendChild(rightArrow)
-
+    return currentIndex + 1;
 }
 
-const slide = () => {
+const prevIndex = (currentIndex) => {
+    if (currentIndex === 0) {
+        return imgArr.length - 1;
+    }
+
+    return currentIndex - 1;
+}
+
+const slide = (index) => {
+    const image = document.querySelector('.main-image');
+    const newSrc = imgArr[index];
+    image.src = newSrc;
+}
+
+const getIndex = () => {
     const image = document.querySelector('.main-image');
     const currentImageArray = image.src.split('/');
     const currentImageSource = currentImageArray[currentImageArray.length - 1];
-    const index = imgArr.indexOf(currentImageSource);
-    const newIndex = getIndex(index);
-    const newSrc = imgArr[newIndex];
-    image.src = newSrc;
+    return imgArr.indexOf(currentImageSource);
+}
+
+const doNextSlide = () => {
+    const index = getIndex()
+    const newIndex = nextIndex(index);
+    slide(newIndex)
+}
+
+const doPrevSlide = () => {
+    const index = getIndex()
+    const newIndex = prevIndex(index);
+    slide(newIndex)
+}
+
+const x = document.createElement("img");
+x.className = "main-image"
+x.src = imgArr[0]
+
+const newDiv = document.createElement("div");
+newDiv.className = "container";
+
+const overlayRightButton = document.createElement("div");
+overlayRightButton.id = "right"
+
+const rightArrow = document.createElement("img");
+rightArrow.src = "Arrows-Right-icon.png"
+
+
+const imageBlock = document.createElement("div")
+imageBlock.className = "image-container";
+
+
+const overlayLeftButton = document.createElement("div");
+overlayLeftButton.id = "left"
+
+const leftArrow = document.createElement("img");
+leftArrow.src = "Arrows-Left-icon.png"
+
+
+const appendDiv = () => {
+    imageBlock.appendChild(x)
+    overlayLeftButton.appendChild(leftArrow);
+    overlayRightButton.appendChild(rightArrow);
+    newDiv.appendChild(imageBlock)
+    newDiv.appendChild(overlayLeftButton)
+    newDiv.appendChild(overlayRightButton);
+    document.body.appendChild(newDiv)
 }
 
 appendDiv()
 
-window.setInterval(function () {
-    slide()
-}, 500)
+const left = document.getElementById('left')
+left.addEventListener('click', doPrevSlide, false)
+const right = document.getElementById('right')
+right.addEventListener('click', doNextSlide, false)
+
+window.setInterval(function() {
+    doNextSlide()
+}, 5000)
